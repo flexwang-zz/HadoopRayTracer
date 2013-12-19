@@ -18,15 +18,21 @@ import primitives.Vector3f;
 public class raytracer {
 
 	public static void main(String args[]) throws IOException {
-		InputStream is = new FileInputStream("/home/flex/scene.xml");
-		int len = is.available();
-		byte[]b = new byte[len];
-		is.read(b);
-		Scene scene = new Scene(b);
+		
+		if (args.length < 2) {
+			System.out.print("Usage: ");
+			System.out.println("core.raytracer $SceneFilePath $OutputPath");
+			return;
+		}
+		
+		String scenepath = args[0];
+		String outputpath = args[1];
+		InputStream is = new FileInputStream(scenepath);
+		Scene scene = new Scene(is);
 		scene.print("");
 		BufferedImage buff = raytrace(scene);
 
-		File file = new File("/home/flex/out.jpg");
+		File file = new File(outputpath);
 		try {
 			ImageIO.write(buff, "jpg", file);
 		} catch (IOException e) {
@@ -36,24 +42,19 @@ public class raytracer {
 		System.out.println("finish");
 	}
 
-	public static BufferedImage raytrace(Scene scene) throws IOException {
-		File file = new File("/home/flex/answer");
-		OutputStream os = new FileOutputStream(file);
+	public static BufferedImage raytrace(Scene scene){
 		Camera camera = scene.camera;
 		int xres = camera.getXRes();
 		int yres = camera.getYRes();
 		BufferedImage result = new BufferedImage(xres, yres,
 				BufferedImage.TYPE_3BYTE_BGR);
-		String answer = "";
+
 		for (int i = 0; i < xres; i++) {
 			for (int j = 0; j < yres; j++) {
 				result.setRGB(i, j, getColor3f(scene, i, j)
 						.getValue());
 			}
 		}
-		os.write(answer.getBytes());
-		os.flush();
-		os.close();
 		return result;
 
 	}
