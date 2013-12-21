@@ -78,7 +78,7 @@ public class Triangle extends Shape {
 		tHit[0] = t;
 		Point3f hitpoint = ray.getPoint(tHit[0]);
 		intersect.p = hitpoint;
-		intersect.n = n.Dot(ray.d) < 0.f ? n.Scale(1.f) : n.Scale(-1.f);
+		intersect.n = n;
 		intersect.material = material;
 		intersect.rayEpsilon = 1e-3f * tHit[0];
 
@@ -106,7 +106,9 @@ public class Triangle extends Shape {
 		String diffuse = tri.getAttribute(DIFFUSE);
 		String specular = tri.getAttribute(SPECULAR);
 		String shiness = tri.getAttribute(SHINESS);
-		material = new Material(diffuse, specular, shiness);
+		String refract = tri.getAttribute(REFRACT);
+		String index = tri.getAttribute(INDEX);
+		material = new Material(diffuse, specular, shiness, refract, index);
 	}
 
 }

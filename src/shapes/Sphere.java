@@ -19,40 +19,36 @@ public class Sphere extends Shape {
 
 	@Override
 	public boolean Intersect(Ray r) {
-	    float phi;
-	    Point3f phit;
-	    // Transform _Ray_ to object space
+		float phi;
+		Point3f phit;
+		// Transform _Ray_ to object space
 		Ray ray;
 		ray = new Ray(r);
-		ray.o = ray.o.Translate3f(-o.x, -o.y, -o.x);
+		ray.o = ray.o.Translate3f(-o.x, -o.y, -o.z);
 
-	    // Compute quadratic sphere coefficients
-	    float A = ray.d.x*ray.d.x + ray.d.y*ray.d.y + ray.d.z*ray.d.z;
-	    float B = 2 * (ray.d.x*ray.o.x + ray.d.y*ray.o.y + ray.d.z*ray.o.z);
-	    float C = ray.o.x*ray.o.x + ray.o.y*ray.o.y +
-	              ray.o.z*ray.o.z - radius*radius;
+		// Compute quadratic sphere coefficients
+		float A = ray.d.x * ray.d.x + ray.d.y * ray.d.y + ray.d.z * ray.d.z;
+		float B = 2 * (ray.d.x * ray.o.x + ray.d.y * ray.o.y + ray.d.z
+				* ray.o.z);
+		float C = ray.o.x * ray.o.x + ray.o.y * ray.o.y + ray.o.z * ray.o.z
+				- radius * radius;
 
-	    // Solve quadratic equation for _t_ values
-	    float[]t = new float[2];
-	    if (!Quadratic(A, B, C, t))
-	        return false;
+		// Solve quadratic equation for _t_ values
+		float[] t = new float[2];
+		if (!Quadratic(A, B, C, t))
+			return false;
 
-	    // Compute intersection distance along ray
-	    if (t[0] > ray.maxt || t[1] < ray.mint)
-	        return false;
-	    float thit = t[0];
-	    if (t[0] < ray.mint) {
-	        thit = t[1];
-	        if (thit > ray.maxt) return false;
-	    }
-
-	    // Compute sphere hit position and $\phi$
-	    phit = ray.getPoint(thit);
-	    if (phit.x == 0.f && phit.y == 0.f) phit.x = 1e-5f * radius;
-	    phi = (float) Math.atan2(phit.y, phit.x);
-	    if (phi < 0.) phi += 2.f*Math.PI;
-
-	    return true;
+		// Compute intersection distance along ray
+		if (t[0] > ray.maxt || t[1] < ray.mint)
+			return false;
+		float thit = t[0];
+		if (t[0] < ray.mint) {
+			thit = t[1];
+			if (thit > ray.maxt)
+				return false;
+		}
+		
+		return true;
 	}
 
 	@Override
@@ -86,7 +82,7 @@ public class Sphere extends Shape {
 				return false;
 		}
 
-		// Compute sphere hit position and $\phi$
+		// Compute sphere hit position
 		phit = ray.getPoint(thit);
 		if (phit.x == 0.f && phit.y == 0.f)
 			phit.x = 1e-5f * radius;
@@ -125,7 +121,9 @@ public class Sphere extends Shape {
 		String diffuse = sphere.getAttribute(DIFFUSE);
 		String specular = sphere.getAttribute(SPECULAR);
 		String shiness = sphere.getAttribute(SHINESS);
-		material = new Material(diffuse, specular, shiness);
+		String refract = sphere.getAttribute(REFRACT);
+		String index = sphere.getAttribute(INDEX);
+		material = new Material(diffuse, specular, shiness, refract, index);
 	}
 	
 	public Sphere(Point3f o, float r)
@@ -159,17 +157,13 @@ public class Sphere extends Shape {
 	
 	public static void main(String[] args)
 	{
-		Ray ray = new Ray(new Point3f(0,0,20), new Vector3f(0,0,-3));
-		ray.maxt = 33;
-		Sphere sphere = new Sphere(new Point3f(0,0,10), 1.f);
-		Intersection intersection = new Intersection();
-		float[]thit = new float[1];
-		if (sphere.Intersect(ray, thit, intersection))
-		{
-			System.out.println(new Vector3f(intersection.p, new Point3f(0,0,10)).length());
-			intersection.p.print();
-			intersection.n.print("N: ");
-			System.out.println("hit");
+		Ray ray = new Ray(new Point3f(1,1,1), new Vector3f(1,1,2));
+		Sphere s = new Sphere(new Point3f(1,1,1), 5);
+		Intersection inttt = new Intersection();
+		float []tHit = new float[1];
+		if (s.Intersect(ray, tHit, inttt)) {
+			inttt.p.print();
+			inttt.n.print("");
 		}
 	}
 }

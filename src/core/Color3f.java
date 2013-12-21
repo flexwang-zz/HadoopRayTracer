@@ -15,9 +15,9 @@ public class Color3f {
 	
 	public Color3f(float r, float g, float b)
 	{
-		this.r = r;
-		this.g = g;
-		this.b = b;
+		this.r = Math.min(1.f, r);
+		this.g = Math.min(1.f, g);
+		this.b = Math.min(1.f, b);
 	}
 	
 	public Color3f(int[] rgb)
@@ -85,6 +85,13 @@ public class Color3f {
 	public boolean isBlack()
 	{
 		return r<Float.MIN_VALUE && g<Float.MIN_VALUE && b<Float.MIN_VALUE;
+	}
+	
+	private void clamp()
+	{
+		r = Math.min(1.f, r);
+		g = Math.min(1.f, g);
+		b = Math.min(1.f, b);
 	}
 	
 }

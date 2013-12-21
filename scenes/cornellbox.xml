@@ -1,0 +1,126 @@
+<scene>
+	<camera
+		eye="278 273 -800"
+		look="278 273 0.f"
+		up="0.f 1.f 0.f"
+		xres="1200"
+		yres="1200"
+		znear="0.1f"
+		zfar="100.f"
+		angle="37.5f"
+		maxdepth="8"/>
+	<shapes>
+		<!--floor-->
+		<triangle
+			p1="552.8f 0.0f 0.0f"
+			p2="0.0f 0.0f 0.0f"
+			p3="0.0f 0.0f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="549.6f 0.0f 559.2f"
+			p2="552.8f 0.0f 0.0f"
+			p3="0.0f 0.0f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		
+		<!--Ceiling-->
+		<triangle
+			p1="556.0f 548.8f 0.0f"
+			p2="556.0f 548.8f 559.2f"
+			p3="0.0f 548.8f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="0.0f 548.8f 0.0f"
+			p2="556.0f 548.8f 0.0f"
+			p3="0.0f 548.8f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		
+		<!--Back wall-->
+		<triangle
+			p1="549.6f 0.0f 559.2f"
+			p2="0.0f 0.0f 559.2f"
+			p3="0.0f 548.8f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="556.0f 548.8f 559.2f"
+			p2="549.6f 0.0f 559.2f"
+			p3="0.0f 548.8f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+
+		<!--Right wall-->
+		<triangle
+			p1="0.0f 0.0f 559.2f"
+			p2="0.0f 0.0f 0.0f"
+			p3="0.0f 548.8f 0.0f"
+			diffuse="0.3 0.8 0.3"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="0.0f 548.8f 559.2f"
+			p2="0.0f 0.0f 559.2f"
+			p3="0.0f 548.8f 0.0f"
+			diffuse="0.3 0.8 0.3"
+			specular="0 0 0"
+			shiness="5"
+		/>
+
+		<!--Left wall-->
+		<triangle
+			p1="552.8f 0.0f 0.0f"
+			p2="549.6f 0.0f 559.2f"
+			p3="556.0f 548.8f 559.2f"
+			diffuse="0.8 0.3 0.3"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="556.0f 548.8f 0.0f"
+			p2="552.8f 0.0f 0.0f"
+			p3="556.0f 548.8f 559.2f"
+			diffuse="0.8 0.3 0.3"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		
+		<sphere
+			radius="100"
+			pos="178 80 169"
+			refract="0.7 0.7 0.7"
+			specular="0.3 0.3 0.3"
+			index="1.f"
+		/>
+		
+		<sphere
+			radius="100"
+			pos="400 80 369"
+			specular="0.85 0.85 0.85"
+			index="1.2f"
+		/>
+		
+	</shapes>
+	
+	<lights>
+		<pointlight
+			pos="278 348 0.6"
+			rgb="1.f 1.f 1.f"/>
+	</lights>
+</scene>
+

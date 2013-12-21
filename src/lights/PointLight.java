@@ -1,10 +1,13 @@
 package lights;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import core.Color3f;
 import core.Scene;
+import primitives.Intersection;
 import primitives.Point3f;
 import primitives.Ray;
 import primitives.Vector3f;
@@ -30,12 +33,10 @@ public class PointLight extends Light {
 	private Color3f rgb;
 
 	public Color3f SampleLight(Scene scene, Point3f p, Vector3f wi, float rayEpsilon) {
-		Ray ray = new Ray(p, new Vector3f(p,this.p), rayEpsilon, new Vector3f(p, this.p).length());
+		Color3f li = new Color3f(rgb);
 		
-		if (scene.Intersect(ray)) {
-			return new Color3f(0.f);
-		}
-
+		//p.x = 1.f;
+		
 		wi.x = this.p.x - p.x;
 		wi.y = this.p.y - p.y;
 		wi.z = this.p.z - p.z;
@@ -46,6 +47,24 @@ public class PointLight extends Light {
 		wi.y /= length;
 		wi.z /= length;
 		
-		return rgb;
+		Intersection inter = new Intersection();
+		Ray ray = new Ray(p, new Vector3f(p,this.p), rayEpsilon, new Vector3f(p, this.p).length());
+		
+		while (true) {
+			if (scene.Intersect(ray, inter)) {
+				if (inter.material.refract.isBlack()) {
+					return new Color3f(0.f);
+				}
+				else
+				{
+					li = li.Scale(inter.material.refract);
+					ray = new Ray(inter.p, new Vector3f(inter.p,this.p), rayEpsilon, new Vector3f(inter.p, this.p).length());
+				}
+			}
+			else {
+				return li;
+			}
+		}
+
 	}
 }

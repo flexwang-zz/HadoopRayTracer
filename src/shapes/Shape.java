@@ -4,6 +4,7 @@ import materials.Material;
 
 import org.w3c.dom.Node;
 
+import core.Color3f;
 import primitives.Intersection;
 import primitives.Ray;
 
@@ -14,6 +15,8 @@ public abstract class Shape {
 	public static final String DIFFUSE = "diffuse";
 	public static final String SPECULAR = "specular";
 	public static final String SHINESS = "shiness";
+	public static final String REFRACT = "refract";
+	public static final String INDEX = "index";
 	
 	public Material material;
 
