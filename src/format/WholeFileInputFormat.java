@@ -1,4 +1,4 @@
-package wholefile;
+package format;
 
 import java.io.IOException;
  
