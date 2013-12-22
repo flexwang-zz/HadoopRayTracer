@@ -1,3 +1,3 @@
 HadoopRayTracer
 ===============
- ![image](https://github.com/flexwang/HadoopRayTracer/raw/scenes/images/balls.jpg)
+ ![image](https://github.com/flexwang/HadoopRayTracer/raw/master/scenes/images/balls.jpg)
