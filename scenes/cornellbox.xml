@@ -103,9 +103,9 @@
 		<sphere
 			radius="100"
 			pos="178 80 169"
-			refract="0.2 0.2 0.2"
-			specular="0.7 0.7 0.7"
-			index="1.1f"
+			refract="0.7 0.7 0.7"
+			specular="0.2 0.2 0.2"
+			index="1.02f"
 			shiness="20"
 		/>
 		
