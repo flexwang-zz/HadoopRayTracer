@@ -33,7 +33,7 @@ public class PairWritable implements org.apache.hadoop.io.WritableComparable<Pai
 	public int compareTo(PairWritable o) {
 		if (o instanceof PairWritable) {
 			int thisValue = this.first;
-			int thatValue = ((PairWritable)o).second;
+			int thatValue = ((PairWritable)o).first;
 			return (thisValue < thatValue ? -1 : (thisValue == thatValue ? 0
 					: 1));
 		}
