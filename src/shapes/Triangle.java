@@ -15,7 +15,7 @@ public class Triangle extends Shape {
 	public static final String P2 = "p2";
 	public static final String P3 = "p3";
 	
-	private Point3f p1, p2, p3;
+	public Point3f p1, p2, p3;
 	private Vector3f n;
 
 	@Override
@@ -81,12 +81,15 @@ public class Triangle extends Shape {
 		intersect.n = n;
 		intersect.material = material;
 		intersect.rayEpsilon = 1e-3f * tHit[0];
-
+		intersect.id = id;
+		intersect.arealight = arealight;
+		
 		return true;
 	}
 
 	public void print(String prefix) {
 		System.out.println(prefix+"Triangle");
+		System.out.println(prefix+"\tid: "+id);
 		p1.print(prefix+"\tp1: ");
 		p2.print(prefix+"\tp2: ");
 		p3.print(prefix+"\tp3: ");

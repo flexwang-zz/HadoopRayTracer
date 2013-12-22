@@ -26,7 +26,7 @@ public class raytracer {
 			return;
 		}
 		
-		String scenepath = args[2];
+		String scenepath = args[0];
 		String outputpath = args[1];
 		InputStream is = new FileInputStream(scenepath);
 		Scene scene = new Scene(is);
@@ -53,7 +53,7 @@ public class raytracer {
 				BufferedImage.TYPE_3BYTE_BGR);
 
 		System.out.println("Rendering begins");
-		
+
 		for (int i = 0; i < xres; i++) {
 			for (int j = 0; j < yres; j++) {
 				result.setRGB(i, j, getColor3f(scene, i, j)
@@ -63,6 +63,7 @@ public class raytracer {
 				{
 					System.out.print("> ");
 				}
+
 			}
 		}
 		System.out.println("\nRendering ends");
@@ -78,6 +79,10 @@ public class raytracer {
 		Intersection intersect = new Intersection();
 		Color3f rgb = new Color3f(0.f);
 		if (scene.Intersect(ray, intersect)) {
+			//calculate the area light
+			if (intersect.arealight != null) {
+				rgb = rgb.Add(intersect.arealight);
+			}
 			// for each light in scene test shadow
 			for (int i = 0, size = scene.ls.size(); i < size; i++) {
 				Vector3f wi = new Vector3f();
@@ -87,7 +92,6 @@ public class raytracer {
 				if (li.isBlack()) {
 					continue;
 				}
-				//intersect.p.print();
 				Color3f BSDF = intersect.material.BSDF(wi, ray.d.Scale(-1.f), intersect.n);
 				rgb = rgb.Add(li.Scale(BSDF));
 			}

@@ -38,16 +38,19 @@ public class Point3f {
 		System.out.println(prefix + "x:" + x + " y:" + y + " z:" + z);
 	}
 
-	public Point3f Translate3f(Vector3f v) {
-		Point3f result = new Point3f(x, y, z);
-		result.x += v.x;
-		result.y += v.y;
-		result.z += v.z;
-
-		return result;
+	public Point3f Translate(Vector3f v) {
+		return new Point3f(x+v.x, y+v.y, z+v.z);
 	}
 
-	public Point3f Translate3f(float xt, float yt, float zt) {
+	public Point3f Translate(float xt, float yt, float zt) {
 		return new Point3f(this.x + xt, this.y + yt, this.z + zt);
+	}
+	
+	public Point3f Add(Point3f p) {
+		return new Point3f(x+p.x, y+p.y, z+p.z);
+	}
+	
+	public Point3f Scale(float s) {
+		return new Point3f(x*s, y*s, z*s);
 	}
 }

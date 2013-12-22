@@ -77,7 +77,7 @@ public class Scene {
 		NodeList nodes = shapenode.getChildNodes();
 		for (int i = 0, size = nodes.getLength(); i < size; i++) {
 			if (nodes.item(i) instanceof Element)
-				objs.add(Shape.ShapeFactory(nodes.item(i)));
+				objs.add(Shape.ShapeFactory(nodes.item(i), objs.size()+1));
 		}
 
 	}
@@ -86,7 +86,7 @@ public class Scene {
 		NodeList nodes = lightnode.getChildNodes();
 		for (int i = 0, size = nodes.getLength(); i < size; i++) {
 			if (nodes.item(i) instanceof Element)
-				ls.add(Light.LightFactory(nodes.item(i)));
+				ls.add(Light.LightFactory(nodes.item(i), objs));
 		}
 	}
 
@@ -190,6 +190,8 @@ public class Scene {
 					intersect.n = thisinter.n;
 					intersect.material = thisinter.material;
 					intersect.rayEpsilon = thisinter.rayEpsilon;
+					intersect.id = thisinter.id;
+					intersect.arealight = thisinter.arealight;
 
 				}
 			}

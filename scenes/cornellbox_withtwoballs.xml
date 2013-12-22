@@ -15,7 +15,7 @@
 			p1="552.8f 0.0f 0.0f"
 			p2="0.0f 0.0f 0.0f"
 			p3="0.0f 0.0f 559.2f"
-			diffuse="0.3 0.3 0.3"
+			diffuse="0.5 0.5 0.5"
 			specular="0 0 0"
 			shiness="5"
 		/>
@@ -23,7 +23,7 @@
 			p1="549.6f 0.0f 559.2f"
 			p2="552.8f 0.0f 0.0f"
 			p3="0.0f 0.0f 559.2f"
-			diffuse="0.3 0.3 0.3"
+			diffuse="0.5 0.5 0.5"
 			specular="0 0 0"
 			shiness="5"
 		/>
@@ -33,7 +33,7 @@
 			p1="556.0f 548.8f 0.0f"
 			p2="556.0f 548.8f 559.2f"
 			p3="0.0f 548.8f 559.2f"
-			diffuse="0.3 0.3 0.3"
+			diffuse="0.5 0.5 0.5"
 			specular="0 0 0"
 			shiness="5"
 		/>
@@ -41,7 +41,7 @@
 			p1="0.0f 548.8f 0.0f"
 			p2="556.0f 548.8f 0.0f"
 			p3="0.0f 548.8f 559.2f"
-			diffuse="0.3 0.3 0.3"
+			diffuse="0.5 0.5 0.5"
 			specular="0 0 0"
 			shiness="5"
 		/>
@@ -51,7 +51,7 @@
 			p1="549.6f 0.0f 559.2f"
 			p2="0.0f 0.0f 559.2f"
 			p3="0.0f 548.8f 559.2f"
-			diffuse="0.3 0.3 0.3"
+			diffuse="0.5 0.5 0.5"
 			specular="0 0 0"
 			shiness="5"
 		/>
@@ -59,7 +59,7 @@
 			p1="556.0f 548.8f 559.2f"
 			p2="549.6f 0.0f 559.2f"
 			p3="0.0f 548.8f 559.2f"
-			diffuse="0.3 0.3 0.3"
+			diffuse="0.5 0.5 0.5"
 			specular="0 0 0"
 			shiness="5"
 		/>
@@ -69,7 +69,7 @@
 			p1="0.0f 0.0f 559.2f"
 			p2="0.0f 0.0f 0.0f"
 			p3="0.0f 548.8f 0.0f"
-			diffuse="0.1 0.4 0.1"
+			diffuse="0.3 0.8 0.3"
 			specular="0 0 0"
 			shiness="5"
 		/>
@@ -77,7 +77,7 @@
 			p1="0.0f 548.8f 559.2f"
 			p2="0.0f 0.0f 559.2f"
 			p3="0.0f 548.8f 0.0f"
-			diffuse="0.1 0.4 0.1"
+			diffuse="0.3 0.8 0.3"
 			specular="0 0 0"
 			shiness="5"
 		/>
@@ -87,7 +87,7 @@
 			p1="552.8f 0.0f 0.0f"
 			p2="549.6f 0.0f 559.2f"
 			p3="556.0f 548.8f 559.2f"
-			diffuse="0.4 0.1 0.1"
+			diffuse="0.8 0.3 0.3"
 			specular="0 0 0"
 			shiness="5"
 		/>
@@ -95,42 +95,40 @@
 			p1="556.0f 548.8f 0.0f"
 			p2="552.8f 0.0f 0.0f"
 			p3="556.0f 548.8f 559.2f"
-			diffuse="0.4 0.1 0.1"
+			diffuse="0.8 0.3 0.3"
 			specular="0 0 0"
 			shiness="5"
 		/>
 		
 		<sphere
-			radius="100"
-			pos="178 80 169"
-			refract="0.2 0.2 0.2"
-			specular="0.7 0.7 0.7"
+			radius="50"
+			pos="278 265 169"
+			specular="0.15 0.15 0.15"
+			refract="0.85 0.85 0.85"
 			index="1.1f"
-			shiness="20"
 		/>
 		
 		<sphere
-			radius="100"
-			pos="400 80 369"
-			specular="0.5 0.4 0.4"
-			shiness="20"
+			radius="10"
+			pos="278 265 250"
+			specular="1 0 0"
+			index="1.1f"
 		/>
-		
 	</shapes>
 	
 	<lights>
 		<arealight
-			rgb="0.8f 0.8f 0.8f">
+			rgb="1.f 1.f 1.f">
 			<triangle
 				p1="213.0f 548.f 227.0f"
 				p2="343.0f 548.f 227.0f"
 				p3="213.0f 548.f 332.0f"
-				diffuse="0.6f 0.6f 0.6f"
+				diffuse="0.5f 0.5f 0.5f"
 				shiness="5"
 			/>
 		</arealight>
 		<arealight
-			rgb="0.8f 0.8f 0.8f">
+			rgb="2.5f 2.5f 2.5f">
 			<triangle
 				p1="343.0f 548.f 227.0f"
 				p2="343.0f 548.f 332.0f"

@@ -35,18 +35,6 @@ public class PointLight extends Light {
 	public Color3f SampleLight(Scene scene, Point3f p, Vector3f wi, float rayEpsilon) {
 		Color3f li = new Color3f(rgb);
 		
-		//p.x = 1.f;
-		
-		wi.x = this.p.x - p.x;
-		wi.y = this.p.y - p.y;
-		wi.z = this.p.z - p.z;
-
-		float length = wi.length();
-		
-		wi.x /= length;
-		wi.y /= length;
-		wi.z /= length;
-		
 		Intersection inter = new Intersection();
 		Ray ray = new Ray(p, new Vector3f(p,this.p), rayEpsilon, new Vector3f(p, this.p).length());
 		
@@ -58,10 +46,20 @@ public class PointLight extends Light {
 				else
 				{
 					li = li.Scale(inter.material.refract);
-					ray = new Ray(inter.p, new Vector3f(inter.p,this.p), rayEpsilon, new Vector3f(inter.p, this.p).length());
+					ray = new Ray(inter.p, new Vector3f(inter.p,this.p), inter.rayEpsilon, new Vector3f(inter.p, this.p).length());
 				}
 			}
 			else {
+
+				wi.x = this.p.x - p.x;
+				wi.y = this.p.y - p.y;
+				wi.z = this.p.z - p.z;
+
+				float length = wi.length();
+				
+				wi.x /= length;
+				wi.y /= length;
+				wi.z /= length;
 				return li;
 			}
 		}

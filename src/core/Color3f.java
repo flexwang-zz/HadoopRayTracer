@@ -15,9 +15,12 @@ public class Color3f {
 	
 	public Color3f(float r, float g, float b)
 	{
-		this.r = Math.min(1.f, r);
-		this.g = Math.min(1.f, g);
-		this.b = Math.min(1.f, b);
+		//this.r = Math.min(1.f, r);
+		//this.g = Math.min(1.f, g);
+		//this.b = Math.min(1.f, b);
+		this.r = r;
+		this.g = g;
+		this.b = b;
 	}
 	
 	public Color3f(int[] rgb)

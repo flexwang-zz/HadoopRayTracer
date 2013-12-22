@@ -1,0 +1,305 @@
+<scene>
+	<camera
+		eye="278 273 -800"
+		look="278 273 0.f"
+		up="0.f 1.f 0.f"
+		xres="800"
+		yres="800"
+		znear="0.1f"
+		zfar="100.f"
+		angle="37.5f"
+		maxdepth="5"/>
+	<shapes>
+		<!--floor-->
+		<triangle
+			p1="552.8f 0.0f 0.0f"
+			p2="0.0f 0.0f 0.0f"
+			p3="0.0f 0.0f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="549.6f 0.0f 559.2f"
+			p2="552.8f 0.0f 0.0f"
+			p3="0.0f 0.0f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		
+		<!--Ceiling-->
+		<triangle
+			p1="556.0f 548.8f 0.0f"
+			p2="556.0f 548.8f 559.2f"
+			p3="0.0f 548.8f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="0.0f 548.8f 0.0f"
+			p2="556.0f 548.8f 0.0f"
+			p3="0.0f 548.8f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		
+		<!--Back wall-->
+		<triangle
+			p1="549.6f 0.0f 559.2f"
+			p2="0.0f 0.0f 559.2f"
+			p3="0.0f 548.8f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="556.0f 548.8f 559.2f"
+			p2="549.6f 0.0f 559.2f"
+			p3="0.0f 548.8f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+
+		<!--Right wall-->
+		<triangle
+			p1="0.0f 0.0f 559.2f"
+			p2="0.0f 0.0f 0.0f"
+			p3="0.0f 548.8f 0.0f"
+			diffuse="0.3 0.8 0.3"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="0.0f 548.8f 559.2f"
+			p2="0.0f 0.0f 559.2f"
+			p3="0.0f 548.8f 0.0f"
+			diffuse="0.3 0.8 0.3"
+			specular="0 0 0"
+			shiness="5"
+		/>
+
+		<!--Left wall-->
+		<triangle
+			p1="552.8f 0.0f 0.0f"
+			p2="549.6f 0.0f 559.2f"
+			p3="556.0f 548.8f 559.2f"
+			diffuse="0.8 0.3 0.3"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="556.0f 548.8f 0.0f"
+			p2="552.8f 0.0f 0.0f"
+			p3="556.0f 548.8f 559.2f"
+			diffuse="0.8 0.3 0.3"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		
+		<!--Short block-->
+		<triangle
+			p1="130.0f 165.0f 65.0f"
+			p2="82.0f 165.0f 225.0f"
+			p3="240.0f 165.0f 272.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="290.0f 165.0f 114.0f"
+			p2="130.0f 165.0f 65.0f"
+			p3="240.0f 165.0f 272.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+
+		<triangle
+			p1="290.0f 0.0f 114.0f"
+			p2="290.0f 165.0f 114.0f"
+			p3="240.0f 165.0f 272.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="240.0f 0.0f 272.0f"
+			p2="290.0f 0.0f 114.0f"
+			p3="240.0f 165.0f 272.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+
+		<triangle
+			p1="130.0f 0.0f 65.0f"
+			p2="130.0f 165.0f 65.0f"
+			p3="290.0f 165.0f 114.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="290.0f 0.0f 114.0f"
+			p2="130.0f 0.0f 65.0f"
+			p3="290.0f 165.0f 114.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+
+		<triangle
+			p1="82.0f 0.0f 225.0f"
+			p2="82.0f 165.0f 225.0f"
+			p3="130.0f 165.0f 65.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="130.0f 0.0f 65.0f"
+			p2="82.0f 0.0f 225.0f"
+			p3="130.0f 165.0f 65.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+
+		<triangle
+			p1="240.0f 0.0f 272.0f"
+			p2="240.0f 165.0f 272.0f"
+			p3="82.0f 165.0f 225.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="82.0f 0.0f 225.0f"
+			p2="240.0f 0.0f 272.0f"
+			p3="82.0f 165.0f 225.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+
+		<!--Tall block-->
+		<triangle
+			p1="423.0f 330.0f 247.0f"
+			p2="265.0f 330.0f 296.0f"
+			p3="314.0f 330.0f 456.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="472.0f 330.0f 406.0f"
+			p2="423.0f 330.0f 247.0f"
+			p3="314.0f 330.0f 456.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+
+		<triangle
+			p1="423.0f 0.0f 247.0f"
+			p2="423.0f 330.0f 247.0f"
+			p3="472.0f 330.0f 406.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="472.0f 0.0f 406.0f"
+			p2="423.0f 0.0f 247.0f"
+			p3="472.0f 330.0f 406.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+
+		<triangle
+			p1="472.0f 0.0f 406.0f"
+			p2="472.0f 330.0f 406.0f"
+			p3="314.0f 330.0f 456.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="314.0f 0.0f 456.0f"
+			p2="472.0f 0.0f 406.0f"
+			p3="314.0f 330.0f 456.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+
+		<triangle
+			p1="314.0f 0.0f 456.0f"
+			p2="314.0f 330.0f 456.0f"
+			p3="265.0f 330.0f 296.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="265.0f 0.0f 296.0f"
+			p2="314.0f 0.0f 456.0f"
+			p3="265.0f 330.0f 296.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+
+		<triangle
+			p1="265.0f 0.0f 296.0f"
+			p2="265.0f 330.0f 296.0f"
+			p3="423.0f 330.0f 247.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="423.0f 0.0f 247.0f"
+			p2="265.0f 0.0f 296.0f"
+			p3="423.0f 330.0f 247.0f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		
+		<sphere
+			radius="50"
+			pos="185.5 265 169"
+			specular="0.8 0.8 0.8"
+		/>
+	</shapes>
+	
+	<lights>
+		<arealight
+			rgb="1.f 1.f 1.f">
+			<triangle
+				p1="213.0f 548.f 227.0f"
+				p2="343.0f 548.f 227.0f"
+				p3="213.0f 548.f 332.0f"
+				diffuse="0.5f 0.5f 0.5f"
+				shiness="5"
+			/>
+		</arealight>
+		<arealight
+			rgb="2.5f 2.5f 2.5f">
+			<triangle
+				p1="343.0f 548.f 227.0f"
+				p2="343.0f 548.f 332.0f"
+				p3="213.0f 548.f 332.0f"
+				diffuse="0.5f 0.5f 0.5f"
+				shiness="5"
+			/>
+		</arealight>
+	</lights>
+</scene>
+

@@ -1,0 +1,45 @@
+<scene>
+	<camera
+		eye="278 273 -800"
+		look="278 273 0.f"
+		up="0.f 1.f 0.f"
+		xres="800"
+		yres="800"
+		znear="0.1f"
+		zfar="100.f"
+		angle="37.5f"
+		maxdepth="1"/>
+	<shapes>
+		<!--floor-->
+		<triangle
+			p1="552.8f 0.0f 0.0f"
+			p2="0.0f 0.0f 0.0f"
+			p3="0.0f 0.0f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+		<triangle
+			p1="549.6f 0.0f 559.2f"
+			p2="552.8f 0.0f 0.0f"
+			p3="0.0f 0.0f 559.2f"
+			diffuse="0.5 0.5 0.5"
+			specular="0 0 0"
+			shiness="5"
+		/>
+	</shapes>
+	
+	<lights>
+		<arealight
+			rgb="1.f 1.f 1.f">
+			<triangle
+				p1="213.0f 548.f 227.0f"
+				p2="343.0f 548.f 227.0f"
+				p3="213.0f 548.f 332.0f"
+				diffuse="0.5f 0.5f 0.5f"
+				shiness="5"
+			/>
+		</arealight>
+	</lights>
+</scene>
+

@@ -14,8 +14,8 @@ public class Sphere extends Shape {
 	public static final String POSITION = "pos";
 	public static final String RADIUS = "radius";
 
-	private Point3f o;
-	private float radius;
+	public Point3f o;
+	public float radius;
 
 	@Override
 	public boolean Intersect(Ray r) {
@@ -24,7 +24,7 @@ public class Sphere extends Shape {
 		// Transform _Ray_ to object space
 		Ray ray;
 		ray = new Ray(r);
-		ray.o = ray.o.Translate3f(-o.x, -o.y, -o.z);
+		ray.o = ray.o.Translate(-o.x, -o.y, -o.z);
 
 		// Compute quadratic sphere coefficients
 		float A = ray.d.x * ray.d.x + ray.d.y * ray.d.y + ray.d.z * ray.d.z;
@@ -58,7 +58,7 @@ public class Sphere extends Shape {
 		// Transform _Ray_ to object space
 		Ray ray;
 		ray = new Ray(r);
-		ray.o = ray.o.Translate3f(-o.x, -o.y, -o.z);
+		ray.o = ray.o.Translate(-o.x, -o.y, -o.z);
 
 		// Compute quadratic sphere coefficients
 		float A = ray.d.x * ray.d.x + ray.d.y * ray.d.y + ray.d.z * ray.d.z;
@@ -96,11 +96,12 @@ public class Sphere extends Shape {
 		Point3f hitpoint = ray.getPoint(tHit[0]);
 		
 		intersect.p = hitpoint;
-		intersect.p = intersect.p.Translate3f(o.x, o.y, o.z);
+		intersect.p = intersect.p.Translate(o.x, o.y, o.z);
 		intersect.n = new Vector3f(this.o, intersect.p).Normalize();
 		intersect.material = material;
 		intersect.rayEpsilon = tHit[0]*5e-4f;
-		
+		intersect.id = id;
+		intersect.arealight = arealight;
 		return true;
 	}
 

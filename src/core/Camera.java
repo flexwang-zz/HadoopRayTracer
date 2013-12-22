@@ -59,8 +59,8 @@ public class Camera {
 		dx = xrange/xres*2.f;
 		dy = yrange/yres*2.f;
 		
-		o = look.Translate3f(xdir.Scale(-xrange))
-				.Translate3f(ydir.Scale(-yrange));
+		o = look.Translate(xdir.Scale(-xrange))
+				.Translate(ydir.Scale(-yrange));
 	}
 
 	public int getXRes() {
@@ -73,7 +73,7 @@ public class Camera {
 
 	public Ray GenerateRay(int x, int y) {
 		y = yres-y;
-		Point3f to = o.Translate3f(xdir.Scale(dx*x)).Translate3f(ydir.Scale(dy*y));
+		Point3f to = o.Translate(xdir.Scale(dx*x)).Translate(ydir.Scale(dy*y));
 		return new Ray(new Point3f(eye), new Vector3f(eye, to));
 
 	}

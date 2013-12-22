@@ -19,19 +19,25 @@ public abstract class Shape {
 	public static final String INDEX = "index";
 	
 	public Material material;
+	public Color3f arealight = new Color3f(0.f);
+	public int id;
 
 	public abstract boolean Intersect(Ray r);
 	public abstract boolean Intersect(Ray r, float t[], Intersection intersect);
 
 	public abstract void print(String prefix);
 	
-	public static Shape ShapeFactory(Node node) {
+	public static Shape ShapeFactory(Node node, int id) {
 		String nodename = node.getNodeName();
 		if (nodename.equals(Shape.SPHERE)) {
-			return new Sphere(node);
+			Sphere sphere = new Sphere(node);
+			sphere.id = id;
+			return sphere;
 		}
 		else if (nodename.equals(Shape.TRIANGLE)) {
-			return new Triangle(node);
+			Triangle tri = new Triangle(node);
+			tri.id = id;
+			return tri;
 		}
 		
 		return null;
