@@ -110,7 +110,7 @@ public class hadoopRaytracer {
 		conf.setInputFormat(WholeFileInputFormat.class);
 		conf.setOutputFormat(ByteOutputFormat.class);
 
-		conf.setNumMapTasks(Integer.MAX_VALUE);
+		conf.setNumMapTasks(2000);
 		conf.setNumReduceTasks(1);
 
 		// interpreter
