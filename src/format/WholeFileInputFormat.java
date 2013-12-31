@@ -13,14 +13,14 @@ import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
  
-public class WholeFileInputFormat extends FileInputFormat<Text, BytesWritable> {
+public class WholeFileInputFormat extends FileInputFormat<PairWritable, BytesWritable> {
     @Override
     protected boolean isSplitable(FileSystem fs, Path filename) {
         return false;
     }
  
     @Override
-    public RecordReader<Text, BytesWritable> getRecordReader(
+    public RecordReader<PairWritable, BytesWritable> getRecordReader(
       InputSplit split, JobConf job, Reporter reporter) throws IOException {
         return new WholeFileRecordReader((FileSplit) split, job);
     }

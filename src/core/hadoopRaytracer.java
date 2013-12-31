@@ -9,7 +9,6 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.NullWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.FileInputFormat;
 import org.apache.hadoop.mapred.FileOutputFormat;
 import org.apache.hadoop.mapred.JobClient;
@@ -28,55 +27,16 @@ public class hadoopRaytracer {
 	private static int divide;
 
 	public static class Map extends MapReduceBase implements
-			Mapper<Text, BytesWritable, PairWritable, BytesWritable> {
+			Mapper<PairWritable, BytesWritable, IntWritable, BytesWritable> {
 
-		public void map(Text filename, BytesWritable scenebytes,
-				OutputCollector<PairWritable, BytesWritable> output,
+		public void map(PairWritable keyrow, BytesWritable scenebytes,
+				OutputCollector<IntWritable, BytesWritable> output,
 				Reporter reporter) throws IOException {
-
-			InputStream is = new ByteArrayInputStream(scenebytes.getBytes());
-			byte[] b = new byte[scenebytes.getLength()];
-			is.read(b);
-			Scene scene = new Scene(b);
-
-			int yres = scene.camera.getYRes();
-			int xres = scene.camera.getXRes();
-
-			int ncut = (divide < 1 || divide > yres) ? yres : divide;
-			int line = yres / ncut;
-			// output the bmp image size(width*height) with key being -1
-			byte[] imagesize = new byte[8];
-			int2byte(xres, imagesize, 0);
-			int2byte(yres, imagesize, 4);
-			output.collect(new PairWritable(-1, -1), new BytesWritable(
-					imagesize));
-
-			for (int i = 0; i < ncut; i++) {
-				if (i == (ncut - 1)) {
-					output.collect(new PairWritable(i * line, yres - 1),
-							scenebytes);
-				} else {
-					output.collect(new PairWritable(i * line, i * line + line
-							- 1), scenebytes);
-				}
-			}
-		}
-	}
-
-	// public static class Combine extends MapReduceBase implements
-	public static class Reduce extends MapReduceBase implements
-			Reducer<PairWritable, BytesWritable, NullWritable, BytesWritable> {
-
-		public void reduce(PairWritable keyrow, Iterator<BytesWritable> values,
-				OutputCollector<NullWritable, BytesWritable> output,
-				Reporter reporter) throws IOException {
-
 			// get the row id
 			int start = keyrow.getfirst();
 			int end = keyrow.getsecond();
 
 			// parse the scene
-			BytesWritable scenebytes = values.next();
 			InputStream is = new ByteArrayInputStream(scenebytes.getBytes());
 			byte[] b = new byte[scenebytes.getLength()];
 			is.read(b);
@@ -84,8 +44,8 @@ public class hadoopRaytracer {
 			if (start < 0) {
 				int xRes = byte2int(b, 0);
 				int yRes = byte2int(b, 4);
-				output.collect(null,
-						new BytesWritable(BmpWrite24.bmphead(xRes, yRes)));
+				output.collect(new IntWritable(-1), new BytesWritable(
+						BmpWrite24.bmphead(xRes, yRes)));
 				return;
 			}
 			Scene scene = new Scene(b);
@@ -94,15 +54,28 @@ public class hadoopRaytracer {
 
 			byte[] rgbs = new byte[3 * xRes * (end - start + 1)];
 			for (int line = start; line <= end; line++) {
-				int rowid = yRes - line - 1; // because bmp stores pixel value in a
-											// bottom-up way
+				int rowid = yRes - line - 1; // because bmp stores pixel value
+												// in a
+												// bottom-up way
 				for (int i = 0; i < xRes; i++) {
 					System.arraycopy(raytracer.getColor3f(scene, i, rowid)
 							.getBytes(), 0, rgbs, i * 3 + (line - start) * 3
 							* xRes, 3);
 				}
 			}
-			output.collect(null, new BytesWritable(rgbs));
+			output.collect(new IntWritable(start), new BytesWritable(rgbs));
+		}
+	}
+
+	// public static class Combine extends MapReduceBase implements
+	public static class Reduce extends MapReduceBase implements
+			Reducer<IntWritable, BytesWritable, NullWritable, BytesWritable> {
+
+		public void reduce(IntWritable keyrow, Iterator<BytesWritable> values,
+				OutputCollector<NullWritable, BytesWritable> output,
+				Reporter reporter) throws IOException {
+
+			output.collect(null, values.next());
 		}
 	}
 
@@ -130,12 +103,15 @@ public class hadoopRaytracer {
 		conf.setOutputValueClass(BytesWritable.class);
 
 		conf.setMapperClass(Map.class);
-		conf.setMapOutputKeyClass(PairWritable.class);
+		conf.setMapOutputKeyClass(IntWritable.class);
 		conf.setMapOutputValueClass(BytesWritable.class);
 		conf.setReducerClass(Reduce.class);
 
 		conf.setInputFormat(WholeFileInputFormat.class);
 		conf.setOutputFormat(ByteOutputFormat.class);
+
+		conf.setNumMapTasks(Integer.MAX_VALUE);
+		conf.setNumReduceTasks(1);
 
 		// interpreter
 		String inpath, outpath;
@@ -152,7 +128,7 @@ public class hadoopRaytracer {
 			inpath = args[2];
 			outpath = args[3];
 		} else if (args[0].startsWith("-d")) {
-			int startindex = args[0].indexOf('d')+1;
+			int startindex = args[0].indexOf('d') + 1;
 			divide = Integer.parseInt(args[0].substring(startindex));
 			if (divide < 0) {
 				divide = 0;
@@ -160,7 +136,7 @@ public class hadoopRaytracer {
 			inpath = args[1];
 			outpath = args[2];
 		} else if (args[0].startsWith("--divide")) {
-			int startindex = args[0].indexOf('e')+1;
+			int startindex = args[0].indexOf('e') + 1;
 			divide = Integer.parseInt(args[0].substring(startindex));
 			if (divide < 0) {
 				divide = 0;
@@ -171,8 +147,11 @@ public class hadoopRaytracer {
 			inpath = args[0];
 			outpath = args[1];
 		}
+
+		conf.setInt("nDivide", divide);
+
 		FileInputFormat.setInputPaths(conf, new Path(inpath));
-		FileOutputFormat.setOutputPath(conf,  new Path(outpath));
+		FileOutputFormat.setOutputPath(conf, new Path(outpath));
 		JobClient.runJob(conf);
 	}
 }

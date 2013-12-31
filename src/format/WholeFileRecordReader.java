@@ -7,67 +7,113 @@ import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IOUtils;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.mapred.RecordReader;
- 
-class WholeFileRecordReader implements RecordReader<Text, BytesWritable> {
-  
-    private FileSplit fileSplit;
-    private Configuration conf;
-    private boolean processed = false;
-  
-    public WholeFileRecordReader(FileSplit fileSplit, Configuration conf) throws IOException {
-        this.fileSplit = fileSplit;
-        this.conf = conf;
-    }
- 
-    @Override
-    public boolean next(Text key, BytesWritable value) throws IOException {
-        if (!processed) {
-            byte[] contents = new byte[(int) fileSplit.getLength()];
-            Path file = fileSplit.getPath();
- 
-            String fileName = file.getName();
-            key.set(fileName);
- 
-            FileSystem fs = file.getFileSystem(conf);
-            FSDataInputStream in = null;
-            try {
-                in = fs.open(file);
-                IOUtils.readFully(in, contents, 0, contents.length);                
-                value.set(contents, 0, contents.length);
-            } finally {
-                IOUtils.closeStream(in);
-            }
-            processed = true;
-            return true;
-        }
-        return false;
-    }
- 
-    @Override
-    public Text createKey() {
-        return new Text();
-    }
- 
-    @Override
-    public BytesWritable createValue() {
-        return new BytesWritable();
-    }
- 
-    @Override
-    public long getPos() throws IOException {
-        return processed ? fileSplit.getLength() : 0;
-    }
- 
-    @Override
-    public float getProgress() throws IOException {
-        return processed ? 1.0f : 0.0f;
-    }
- 
-    @Override
-    public void close() throws IOException {
-        // do nothing
-    }
+
+import core.Scene;
+
+class WholeFileRecordReader implements RecordReader<PairWritable, BytesWritable> {
+
+	private FileSplit fileSplit;
+	private Configuration conf;
+
+	private int nDivide;
+	private int curDivide;
+	private byte[] contents;
+	private byte[] imagesize;
+	private int line;
+	private int xres, yres;
+
+	public WholeFileRecordReader(FileSplit fileSplit, Configuration conf)
+			throws IOException {
+		this.fileSplit = fileSplit;
+		this.conf = conf;
+
+		this.nDivide = conf.getInt("nDivide", 0);
+		this.curDivide = -1;
+		contents = new byte[(int) this.fileSplit.getLength()];
+
+		Path file = fileSplit.getPath();
+		FileSystem fs = file.getFileSystem(conf);
+		FSDataInputStream in = null;
+		try {
+			in = fs.open(file);
+			IOUtils.readFully(in, contents, 0, contents.length);
+		} finally {
+			IOUtils.closeStream(in);
+		}
+
+		Scene scene = new Scene(contents);
+		yres = scene.camera.getYRes();
+		xres = scene.camera.getXRes();
+
+		nDivide = (nDivide < 1 || nDivide > yres) ? yres : nDivide;
+		line = yres / nDivide;
+		// output the bmp image size(width*height) with key being -1
+		imagesize = new byte[8];
+		int2byte(xres, imagesize, 0);
+		int2byte(yres, imagesize, 4);
+	}
+
+	@Override
+	public boolean next(PairWritable key, BytesWritable value) throws IOException {
+		if (curDivide < 0) {
+			key.setfirst(-1);
+			key.setsecond(-1);
+			value.set(imagesize, 0, 8);
+			curDivide++;
+			return true;
+		}
+		else if (curDivide < (nDivide-1)){
+			key.setfirst(curDivide*line);
+			key.setsecond(curDivide * line + line - 1);
+			value.set(contents, 0, contents.length);
+			curDivide++;
+			return true;
+		}
+		else if (curDivide < nDivide) {
+			key.setfirst(curDivide*line);
+			key.setsecond(yres - 1);
+			value.set(contents, 0, contents.length);
+			curDivide++;
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public PairWritable createKey() {
+		return new PairWritable();
+	}
+
+	@Override
+	public BytesWritable createValue() {
+		return new BytesWritable();
+	}
+
+	@Override
+	public long getPos() throws IOException {
+		float ratio = (float)(curDivide+1)/nDivide;
+		return (long)(ratio*fileSplit.getLength());
+	}
+
+	@Override
+	public float getProgress() throws IOException {
+		float ratio = (float)(curDivide+1)/nDivide;
+		return ratio;
+	}
+
+	@Override
+	public void close() throws IOException {
+		// do nothing
+	}
+	
+	private  void int2byte(int res, byte[] targets, int shift) {
+
+		targets[0 + shift] = (byte) (res & 0xff);
+		targets[1 + shift] = (byte) ((res >> 8) & 0xff);
+		targets[2 + shift] = (byte) ((res >> 16) & 0xff);
+		targets[3 + shift] = (byte) (res >>> 24);
+	}
 }
