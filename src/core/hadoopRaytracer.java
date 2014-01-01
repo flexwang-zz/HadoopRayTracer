@@ -21,7 +21,7 @@ import org.apache.hadoop.mapred.Reporter;
 
 import format.ByteOutputFormat;
 import format.PairWritable;
-import format.WholeFileInputFormat;
+import format.SceneFileInputFormat;
 
 public class hadoopRaytracer {
 	private static int divide;
@@ -41,13 +41,6 @@ public class hadoopRaytracer {
 			byte[] b = new byte[scenebytes.getLength()];
 			is.read(b);
 
-			if (start < 0) {
-				int xRes = byte2int(b, 0);
-				int yRes = byte2int(b, 4);
-				output.collect(new IntWritable(-1), new BytesWritable(
-						BmpWrite24.bmphead(xRes, yRes)));
-				return;
-			}
 			Scene scene = new Scene(b);
 			int xRes = scene.camera.getXRes();
 			int yRes = scene.camera.getYRes();
@@ -63,7 +56,16 @@ public class hadoopRaytracer {
 							* xRes, 3);
 				}
 			}
-			output.collect(new IntWritable(start), new BytesWritable(rgbs));
+			
+			if (start == 0) {
+				byte[] bmphead_plus_rgbs = new byte[3 * xRes * (end - start + 1)+58];
+				System.arraycopy(BmpWrite24.bmphead(xRes, yRes), 0, bmphead_plus_rgbs, 0, 58);
+				System.arraycopy(rgbs, 0, bmphead_plus_rgbs, 58, 3 * xRes * (end - start + 1));
+				output.collect(new IntWritable(start), new BytesWritable(bmphead_plus_rgbs));
+			}
+			else {
+				output.collect(new IntWritable(start), new BytesWritable(rgbs));
+			}
 		}
 	}
 
@@ -107,7 +109,7 @@ public class hadoopRaytracer {
 		conf.setMapOutputValueClass(BytesWritable.class);
 		conf.setReducerClass(Reduce.class);
 
-		conf.setInputFormat(WholeFileInputFormat.class);
+		conf.setInputFormat(SceneFileInputFormat.class);
 		conf.setOutputFormat(ByteOutputFormat.class);
 
 		conf.setNumMapTasks(2000);
