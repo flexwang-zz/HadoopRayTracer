@@ -10,7 +10,7 @@ public class Color3f {
 	}
 	
 	public Color3f(float rgb) {
-		r = g =b =rgb;
+		r = g = b =rgb;
 	}
 	
 	public Color3f(float r, float g, float b)
@@ -54,8 +54,8 @@ public class Color3f {
 		int green = Math.min(255, (int)(g*255.f));
 		int blue = Math.min(255, (int)(b*255.f));
 		byte[] bytes = new byte[3];
-		bytes[0] = (byte)(((red) << 24) >> 24);
-		bytes[1] = (byte)(((green) << 24) >> 24);
+		bytes[1] = (byte)(((red) << 24) >> 24);	//this is weird
+		bytes[0] = (byte)(((green) << 24) >> 24);
 		bytes[2] = (byte)(((blue) << 24) >> 24);
 		return bytes;
 		
