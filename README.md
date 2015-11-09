@@ -97,9 +97,9 @@ Always remember that the number of mappers should not exceed the number of nodes
 Hadoop Raytracer project contains a standalone ray tracer and a function to calculate one pixel of the final rendered image, both of which use the ray tracing algorithm.
 
 I don’t think this part of implementation should be discussed here, since it is an aged and well-known algorithm. There are three features I’d like to indicate:
-1)	Hadoop Raytracer uses Phong reflection model to simulate the surface illumination;
-2)	Hadoop Raytracer supports the light attenuation across a transparent surface;
-3)	Hadoop Raytracer supports soft shadow caused by partially blocked area light.
+  - Hadoop Raytracer uses Phong reflection model to simulate the surface illumination;
+  - Hadoop Raytracer supports the light attenuation across a transparent surface;
+  - Hadoop Raytracer supports soft shadow caused by partially blocked area light.
 
 ### MapReduce
 
