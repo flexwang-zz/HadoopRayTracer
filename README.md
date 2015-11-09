@@ -2,7 +2,6 @@ HadoopRayTracer
 ===============
  ![image](https://github.com/flexwang/HadoopRayTracer/raw/master/scenes/images/balls.jpg)
  
- # Hadoop-Raytracer
 ## Introduction
 Hadoop Raytracer is a ray tracer based on Hadoop MapReduce, which takes advantage of the parallelism of clusters. I will explain how to work on it and how I implement it after a brief introduction of Apache Hadoop and Ray Tracing Algorithm.
 
