@@ -125,7 +125,7 @@ Hadoop by default output as a plain text, we redefine the output format as binar
 
 #### Render and write back
 
-So, now each mapper gets what they need to do. That is, the mapper who got the <PairWritable(0,end0), BytesWritable(scene)> is responsible for writing the file head of bmp image besides rendering. And the rest of mappers are just responsible for rendering.
+So, now each mapper gets what they need to do. That is, the mapper who get the <<PairWritable(0,end0), BytesWritable(scene)>> is responsible for writing the file head of bmp image besides rendering. And the rest of mappers are just responsible for rendering.
 
 Writing the image head is done in core.BmpWrite24.bmphead(int width, int height), which returns the necessary information for a width x height bmp image in byte.
 
