@@ -8,7 +8,7 @@ Hadoop Raytracer is a ray tracer based on Hadoop MapReduce, which takes advantag
 ### About Apache Hadoop
 Hadoop MapReduce is a software framework for easily writing applications in-parallel on large clusters (thousands of nodes) of commodity hardware in a reliable, fault-tolerant manner.
 
-Hadoop is so each to use that people only need to define two methods to write a simplest Hadoop application.
+Hadoop is so easy to use that people only need to define two methods to write a simplest Hadoop application.
 
 ### About Ray Tracing
 Ray Tracing is a basic algorithm for rendering realistic image, which takes a description of a 3D scene and how a camera is placed as input and outputs an image captured by the camera of the scene.
