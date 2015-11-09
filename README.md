@@ -3,7 +3,7 @@ HadoopRayTracer
  ![image](https://github.com/flexwang/HadoopRayTracer/raw/master/scenes/images/balls.jpg)
  
 ## Introduction
-Hadoop Raytracer is a ray tracer based on Hadoop MapReduce, which takes advantage of the parallelism of clusters. I will explain how to work on it and how I implement it after a brief introduction of Apache Hadoop and Ray Tracing Algorithm.
+Hadoop Raytracer is a ray tracer based on Hadoop MapReduce, which takes advantage of the parallelism of clusters. I will explain how to work on it and how I implement it after a brief introduction to Apache Hadoop and Ray Tracing Algorithm.
 
 ### About Apache Hadoop
 Hadoop MapReduce is a software framework for easily writing applications in-parallel on large clusters (thousands of nodes) of commodity hardware in a reliable, fault-tolerant manner.
@@ -48,7 +48,7 @@ Below is a sample. Since we use Phong reflection model here, a shiness attribute
 
 ```xml
 <shapes>
-<triangle
+	<triangle
 		p1="556.0f 548.8f 0.0f"
 		p2="552.8f 0.0f 0.0f"
 		p3="556.0f 548.8f 559.2f"
